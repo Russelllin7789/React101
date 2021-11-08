@@ -1,9 +1,14 @@
 import AddressPicker from "./AddressPicker.jsx"
+import ReceiptType from './ReceiptType.jsx'
 
 class App extends React.Component {
   render() {
     return (
-      <AddressPicker />
+      <div>
+        <ReceiptType />
+        <hr />
+        <AddressPicker />
+      </div>
     )
   }
 }
