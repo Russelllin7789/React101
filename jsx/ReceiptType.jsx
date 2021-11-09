@@ -13,8 +13,26 @@ class ReceiptType extends React.Component {
     this.setState({ [name]: value })
   }
 
+  removeValueFromArray = (arr, value) => {
+    return arr.filter((element) => element !== value)
+  }
+
   checkBoxHandler = (e) => {
-    const { name, value } = e.target
+    const newValue = e.target.value
+    const name = e.target.getAttribute('attribute')
+    let values = this.state[name]
+
+    if (values.includes(newValue)) {
+      values = this.removeValueFromArray(values, newValue)
+    } else {
+      values.push(newValue)
+    }
+
+    if (name === 'receiptOptions' && !values.includes('byMail')) {
+      values = []
+    }
+
+    this.setState({ [name]: values })
   }
 
   render = () => {
@@ -40,12 +58,12 @@ class ReceiptType extends React.Component {
         <div>
           <span>郵寄選項</span><br />
           <label>
-            <input type="checkbox" name="receiptOptions[]" value="byMail" checked={this.state.receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
+            <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={this.state.receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
             實體寄送（+30）
           </label>
           <br />
           <label>
-            <input type="checkbox" name="receiptOptions[]" value="promptRegistered" checked={this.state.receiptOptions.includes('promptRegistered')} onChange={this.checkBoxHandler} />
+            <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={this.state.receiptOptions.includes('promptRegistered')} disabled={!this.state.receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
             限時寄送（+60）
           </label>
         </div>
