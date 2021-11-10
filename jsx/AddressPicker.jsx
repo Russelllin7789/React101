@@ -51,7 +51,7 @@ class AddressPicker extends React.Component {
     const districtOptions = this.getDistricts(districts)
     return (
       <div className="container">
-        <h1>Address Picker</h1>
+        <h2>Address</h2>
         <div>
           <label>城市</label>
           <select name="city" onChange={this.inputHandler} value={city}>

@@ -1,6 +1,7 @@
 import AddressPicker from "./AddressPicker.jsx"
 import ReceiptType from './ReceiptType.jsx'
 import TaiwanPostalCode from './TaiwanPostalCode.json'
+import Button from '@material/react-button'
 
 class App extends React.Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class App extends React.Component {
           handler={this.handler}
           taiwanPostalCodes={TaiwanPostalCode} />
         <hr />
-        <button type="submit" disabled={!this.isReady()} >填寫完畢</button>
+        <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
       </div>
     )
   }

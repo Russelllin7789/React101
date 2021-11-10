@@ -35,6 +35,7 @@ class ReceiptType extends React.Component {
     return (
       <div>
         <div>
+          <h2>Receipt</h2>
           <span>發票類型</span><br />
           <label>
             <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
