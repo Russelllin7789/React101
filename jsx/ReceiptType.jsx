@@ -1,18 +1,4 @@
 class ReceiptType extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      receiptType: '2',
-      taxId: '',
-      receiptOptions: ['byMail']
-    }
-  }
-
-  handler = (e) => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
-  }
-
   removeValueFromArray = (arr, value) => {
     return arr.filter((element) => element !== value)
   }
@@ -20,7 +6,8 @@ class ReceiptType extends React.Component {
   checkBoxHandler = (e) => {
     const newValue = e.target.value
     const name = e.target.getAttribute('attribute')
-    let values = this.state[name]
+    const { receipt, handler } = this.props
+    let values = receipt[name]
 
     if (values.includes(newValue)) {
       values = this.removeValueFromArray(values, newValue)
@@ -28,29 +15,37 @@ class ReceiptType extends React.Component {
       values.push(newValue)
     }
 
+    // 若第一個選項未選擇，清空第二個選項且令其無法選擇
     if (name === 'receiptOptions' && !values.includes('byMail')) {
       values = []
     }
 
-    this.setState({ [name]: values })
+    handler('receipt', { ...receipt, [name]: values })
+  }
+
+  inputHandler = (e) => {
+    const { name, value } = e.target
+    const { receipt, handler } = this.props
+    handler('receipt', { ...receipt, [name]: value })
   }
 
   render = () => {
+    const { receipt } = this.props
+    const { receiptType, taxId, receiptOptions } = receipt
     return (
       <div>
-        <h1>Hello!!!Russell~~~</h1>
         <div>
           <span>發票類型</span><br />
           <label>
-            <input type="radio" name="receiptType" value="2" checked={this.state.receiptType === '2'} onChange={this.handler} />
+            <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
             個人
           </label>
           <br />
           <label>
-            <input type="radio" name="receiptType" value="3" checked={this.state.receiptType === '3'} onChange={this.handler} />
+            <input type="radio" name="receiptType" value="3" checked={receiptType === '3'} onChange={this.inputHandler} />
             公司
             統一編號
-            <input type="text" name="taxId" value={this.state.taxId} onChange={this.handler} />
+            <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
           </label>
         </div>
         <br />
@@ -58,12 +53,12 @@ class ReceiptType extends React.Component {
         <div>
           <span>郵寄選項</span><br />
           <label>
-            <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={this.state.receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
+            <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
             實體寄送（+30）
           </label>
           <br />
           <label>
-            <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={this.state.receiptOptions.includes('promptRegistered')} disabled={!this.state.receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
+            <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={receiptOptions.includes('promptRegistered')} disabled={!receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
             限時寄送（+60）
           </label>
         </div>

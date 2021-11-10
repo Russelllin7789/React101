@@ -1,27 +1,19 @@
-import TaiwanPostalCode from './TaiwanPostalCode.json'
-
 class AddressPicker extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      city: '宜蘭縣',
-      district: '',
-      postalCode: ''
-    }
-
-    this.postalCode = TaiwanPostalCode
-    this.cities = Object.keys(this.postalCode)
+    this.cities = Object.keys(this.props.taiwanPostalCodes)
   }
 
-  handler = (name, value) => {
+  handlerRelated = (name, value) => {
     let mergeObject = {}
+    const { taiwanPostalCodes, fullAddress: { city, district, postalCode, address } } = this.props
 
-    if (name === 'city' && this.state.city !== value) {
+    if (name === 'city' && city !== value) {
       //利用 object 複寫的特性，在重新選擇城市後，清空區域 && 郵遞區號
       mergeObject['district'] = ''
       mergeObject['postalCode'] = ''
-    } else if (name === 'district' && this.state.district !== value) {
-      const cityData = this.postalCode[this.state.city]
+    } else if (name === 'district' && district !== value) {
+      const cityData = taiwanPostalCodes[city]
       const postalCode = cityData[value]
       mergeObject['postalCode'] = postalCode
     }
@@ -29,12 +21,6 @@ class AddressPicker extends React.Component {
     return mergeObject
   }
 
-  selectedAction = (e) => {
-    let { name, value } = e.target
-
-    const mergeObject = this.handler(name, value)
-    this.setState({ ...mergeObject, [name]: value }, () => console.log(this.state))
-  }
 
   getDistricts = (districts) => {
     return districts.map((district) => {
@@ -49,26 +35,39 @@ class AddressPicker extends React.Component {
     })
   }
 
+  inputHandler = (e) => {
+    const { name, value } = e.target
+    console.log(name, value)
+    const { fullAddress, handler } = this.props
+    const mergeObject = this.handlerRelated(name, value)
+    handler('fullAddress', { ...fullAddress, ...mergeObject, [name]: value })
+  }
+
   render() {
+    const { taiwanPostalCodes, fullAddress: { city, district, postalCode, address } } = this.props
     const cityOptions = this.getCityOptions(this.cities)
-    const cityData = Object.keys(this.postalCode[this.state.city])
-    const districts = this.getDistricts(cityData)
+    const cityData = taiwanPostalCodes[city]
+    const districts = Object.keys(cityData)
+    const districtOptions = this.getDistricts(districts)
     return (
       <div className="container">
         <h1>Address Picker</h1>
         <div>
           <label>城市</label>
-          <select name="city" onChange={this.selectedAction} value={this.state.city}>
+          <select name="city" onChange={this.inputHandler} value={city}>
             {cityOptions}
           </select>
           <br />
           <label>區域</label>
-          <select name="district" onChange={this.selectedAction} value={this.state.district} >
-            {districts}
+          <select name="district" onChange={this.inputHandler} value={district} >
+            {districtOptions}
           </select>
           <br />
           <label>郵遞區號</label>
-          <input name="postalCode" onChange={this.selectedAction} value={this.state.postalCode} disabled={true} />
+          <input name="postalCode" onChange={this.inputHandler} value={postalCode} disabled={true} />
+          <br />
+          <label>地址</label>
+          <input name="address" onChange={this.inputHandler} value={address} />
         </div>
       </div>
     )
