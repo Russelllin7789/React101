@@ -18,6 +18,8 @@ import {
   Subtitle2,
 } from '@material/react-typography';
 
+import Radio, { NativeRadioControl } from '@material/react-radio';
+
 class ReceiptType extends React.Component {
   removeValueFromArray = (arr, value) => {
     return arr.filter((element) => element !== value)
@@ -63,7 +65,28 @@ class ReceiptType extends React.Component {
               </Headline6>
               <Body2 tag="div">
                 <div>
-                  <label>
+                  <Radio label="個人" key="personal">
+                    <NativeRadioControl
+                      name="receiptType"
+                      value="2"
+                      id="personal"
+                      onChange={this.inputHandler}
+                      checked={receiptType === '2'}
+                    />
+                  </Radio>
+                  <br />
+                  <Radio label="公司" key="company">
+                    <NativeRadioControl
+                      name="receiptType"
+                      value="3"
+                      id="company"
+                      onChange={this.inputHandler}
+                      checked={receiptType === '3'}
+                    />
+                  </Radio>
+                  統一編號
+                  <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
+                  {/*<label>
                     <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
                     個人
                   </label>
@@ -71,14 +94,14 @@ class ReceiptType extends React.Component {
                   <label>
                     <input type="radio" name="receiptType" value="3" checked={receiptType === '3'} onChange={this.inputHandler} />
                     公司
-                    統一編號
-                    <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
-                  </label>
+                  </label> */}
                 </div>
                 <br />
-                <br />
                 <div>
-                  <span>郵寄選項</span><br />
+                  <Headline6 className='demo-card__title' tag="p">
+                    郵寄選項
+                  </Headline6>
+
                   <label>
                     <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
                     實體寄送（+30）
