@@ -21,6 +21,8 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "@material/react-button": "^0.15.0"
+    "@material/react-button": "^0.15.0",
+    "@material/react-card": "^0.15.0",
+    "@material/react-typography": "^0.15.0"
   }
 }

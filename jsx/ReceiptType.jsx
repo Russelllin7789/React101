@@ -1,3 +1,23 @@
+import Card, {
+  CardPrimaryContent,
+} from "@material/react-card";
+
+import {
+  Body1,
+  Body2,
+  Button,
+  Caption,
+  Headline1,
+  Headline2,
+  Headline3,
+  Headline4,
+  Headline5,
+  Headline6,
+  Overline,
+  Subtitle1,
+  Subtitle2,
+} from '@material/react-typography';
+
 class ReceiptType extends React.Component {
   removeValueFromArray = (arr, value) => {
     return arr.filter((element) => element !== value)
@@ -34,35 +54,45 @@ class ReceiptType extends React.Component {
     const { receiptType, taxId, receiptOptions } = receipt
     return (
       <div>
-        <div>
-          <h2>Receipt</h2>
-          <span>發票類型</span><br />
-          <label>
-            <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
-            個人
-          </label>
-          <br />
-          <label>
-            <input type="radio" name="receiptType" value="3" checked={receiptType === '3'} onChange={this.inputHandler} />
-            公司
-            統一編號
-            <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
-          </label>
-        </div>
-        <br />
-        <br />
-        <div>
-          <span>郵寄選項</span><br />
-          <label>
-            <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
-            實體寄送（+30）
-          </label>
-          <br />
-          <label>
-            <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={receiptOptions.includes('promptRegistered')} disabled={!receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
-            限時寄送（+60）
-          </label>
-        </div>
+        <Card>
+          <CardPrimaryContent>
+            <div style={{ padding: "1rem" }}>
+              <h2>Receipt</h2>
+              <Headline6 className='demo-card__title' tag="p">
+                發票類型
+              </Headline6>
+              <Body2 tag="div">
+                <div>
+                  <label>
+                    <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
+                    個人
+                  </label>
+                  <br />
+                  <label>
+                    <input type="radio" name="receiptType" value="3" checked={receiptType === '3'} onChange={this.inputHandler} />
+                    公司
+                    統一編號
+                    <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
+                  </label>
+                </div>
+                <br />
+                <br />
+                <div>
+                  <span>郵寄選項</span><br />
+                  <label>
+                    <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
+                    實體寄送（+30）
+                  </label>
+                  <br />
+                  <label>
+                    <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={receiptOptions.includes('promptRegistered')} disabled={!receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
+                    限時寄送（+60）
+                  </label>
+                </div>
+              </Body2>
+            </div>
+          </CardPrimaryContent>
+        </Card>
       </div>
     )
   }
