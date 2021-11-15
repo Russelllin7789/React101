@@ -19,6 +19,7 @@ import {
 } from '@material/react-typography';
 
 import Radio, { NativeRadioControl } from '@material/react-radio';
+import Checkbox from '@material/react-checkbox';
 
 class ReceiptType extends React.Component {
   removeValueFromArray = (arr, value) => {
@@ -102,15 +103,36 @@ class ReceiptType extends React.Component {
                     郵寄選項
                   </Headline6>
 
-                  <label>
-                    <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
-                    實體寄送（+30）
-                  </label>
+                  <React.Fragment>
+                    <Checkbox
+                      name="receiptOptions[]"
+                      attribute="receiptOptions"
+                      nativeControlId="byMail"
+                      value="byMail"
+                      checked={receiptOptions.includes('byMail')}
+                      onChange={this.checkBoxHandler}
+                    />
+                    <label htmlFor="byMail">實體寄送（+30）</label>
+                  </React.Fragment>
+                  {/* <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} /> */}
                   <br />
-                  <label>
-                    <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={receiptOptions.includes('promptRegistered')} disabled={!receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} />
-                    限時寄送（+60）
-                  </label>
+                  <React.Fragment>
+                    <Checkbox
+                      name="receiptOptions[]"
+                      attribute="receiptOptions"
+                      nativeControlId="promptRegistered"
+                      value="promptRegistered"
+                      checked={receiptOptions.includes('promptRegistered')}
+                      disabled={!receiptOptions.includes('byMail')}
+                      onChange={this.checkBoxHandler}
+                    />
+                    <label htmlFor="promptRegistered">實體寄送（+30）</label>
+                    {/* <input type="checkbox" name="receiptOptions[]" value="byMail" attribute="receiptOptions" checked={receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} /> */}
+                    <label>
+                      限時寄送（+60）
+                    </label>
+                  </React.Fragment>
+                  {/* <input type="checkbox" name="receiptOptions[]" value="promptRegistered" attribute="receiptOptions" checked={receiptOptions.includes('promptRegistered')} disabled={!receiptOptions.includes('byMail')} onChange={this.checkBoxHandler} /> */}
                 </div>
               </Body2>
             </div>
