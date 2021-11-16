@@ -22,13 +22,20 @@ import Radio, { NativeRadioControl } from '@material/react-radio';
 import Checkbox from '@material/react-checkbox';
 
 class ReceiptType extends React.Component {
+  // DOM完成後呼叫
+  componentDidMount = () => {
+    document.getElementById('byMail').value = 'byMail'
+    document.getElementById('promptRegistered').value = 'promptRegistered'
+  }
+
   removeValueFromArray = (arr, value) => {
     return arr.filter((element) => element !== value)
   }
 
   checkBoxHandler = (e) => {
+    const checkboxParent = e.target.closest('.mdc-checkbox')
     const newValue = e.target.value
-    const name = e.target.getAttribute('attribute')
+    const name = checkboxParent.getAttribute('attribute')
     const { receipt, handler } = this.props
     let values = receipt[name]
 
@@ -108,7 +115,6 @@ class ReceiptType extends React.Component {
                       name="receiptOptions[]"
                       attribute="receiptOptions"
                       nativeControlId="byMail"
-                      value="byMail"
                       checked={receiptOptions.includes('byMail')}
                       onChange={this.checkBoxHandler}
                     />
@@ -121,7 +127,6 @@ class ReceiptType extends React.Component {
                       name="receiptOptions[]"
                       attribute="receiptOptions"
                       nativeControlId="promptRegistered"
-                      value="promptRegistered"
                       checked={receiptOptions.includes('promptRegistered')}
                       disabled={!receiptOptions.includes('byMail')}
                       onChange={this.checkBoxHandler}
