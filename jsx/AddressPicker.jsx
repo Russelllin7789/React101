@@ -1,3 +1,6 @@
+import Card, { CardPrimaryContent } from "@material/react-card"
+import TextField, { HelperText, Input } from "@material/react-text-field"
+
 class AddressPicker extends React.Component {
   constructor(props) {
     super(props)
@@ -50,26 +53,53 @@ class AddressPicker extends React.Component {
     const districts = Object.keys(cityData)
     const districtOptions = this.getDistricts(districts)
     return (
-      <div className="container">
-        <h2>Address</h2>
-        <div>
-          <label>城市</label>
-          <select name="city" onChange={this.inputHandler} value={city}>
-            {cityOptions}
-          </select>
-          <br />
-          <label>區域</label>
-          <select name="district" onChange={this.inputHandler} value={district} >
-            {districtOptions}
-          </select>
-          <br />
-          <label>郵遞區號</label>
-          <input name="postalCode" onChange={this.inputHandler} value={postalCode} disabled={true} />
-          <br />
-          <label>地址</label>
-          <input name="address" onChange={this.inputHandler} value={address} />
-        </div>
-      </div>
+      <Card>
+        <CardPrimaryContent>
+          <div style={{ 'marginLeft': '1rem' }} className="container">
+            <h2>Address</h2>
+            <div>
+              <label>城市</label>
+              <select name="city" onChange={this.inputHandler} value={city}>
+                {cityOptions}
+              </select>
+              <br />
+              <label>區域</label>
+              <select name="district" onChange={this.inputHandler} value={district} >
+                {districtOptions}
+              </select>
+              <br />
+              <TextField
+                outlined
+                label='郵遞區號'
+              >
+                <Input
+                  type="text"
+                  name={postalCode}
+                  value={postalCode}
+                  disabled={true}
+                  onChange={this.inputHandler} />
+              </TextField>
+              <br />
+              <TextField
+                outlined
+                label='地址'
+              >
+                <Input
+                  type="text"
+                  name={address}
+                  value={address}
+                  onChange={this.inputHandler} />
+              </TextField>
+
+              {/* <label>郵遞區號</label>
+              <input name="postalCode" onChange={this.inputHandler} value={postalCode} disabled={true} />
+              <br />
+              <label>地址</label>
+              <input name="address" onChange={this.inputHandler} value={address} /> */}
+            </div>
+          </div>
+        </CardPrimaryContent>
+      </Card>
     )
   }
 }

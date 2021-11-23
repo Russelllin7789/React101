@@ -54,12 +54,12 @@ class App extends React.Component {
         <ReceiptType
           receipt={this.state.receipt}
           handler={this.handler} />
-        <hr />
+        <br />
         <AddressPicker
           fullAddress={this.state.fullAddress}
           handler={this.handler}
           taiwanPostalCodes={TaiwanPostalCode} />
-        <hr />
+        <br />
         <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
       </div>
     )

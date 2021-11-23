@@ -20,6 +20,7 @@ import {
 
 import Radio, { NativeRadioControl } from '@material/react-radio';
 import Checkbox from '@material/react-checkbox';
+import TextField, { HelperText, Input } from '@material/react-text-field';
 
 class ReceiptType extends React.Component {
   // DOM完成後呼叫
@@ -92,8 +93,16 @@ class ReceiptType extends React.Component {
                       checked={receiptType === '3'}
                     />
                   </Radio>
-                  統一編號
-                  <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} />
+                  <TextField
+                    style={{ 'marginLeft': '1rem' }}
+                    outlined
+                    label='統一編號'
+                  >
+                    <Input
+                      value={taxId}
+                      onChange={this.inputHandler} />
+                  </TextField>
+                  {/* <input type="text" name="taxId" value={taxId} onChange={this.inputHandler} /> */}
                   {/*<label>
                     <input type="radio" name="receiptType" value="2" checked={receiptType === '2'} onChange={this.inputHandler} />
                     個人
