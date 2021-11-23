@@ -1,5 +1,6 @@
 import Card, { CardPrimaryContent } from "@material/react-card"
 import TextField, { HelperText, Input } from "@material/react-text-field"
+import MaterialIcon from "@material/react-material-icon"
 
 class AddressPicker extends React.Component {
   constructor(props) {
@@ -46,6 +47,14 @@ class AddressPicker extends React.Component {
     handler('fullAddress', { ...fullAddress, ...mergeObject, [name]: value })
   }
 
+  clearAddress = () => {
+    const name = 'address'
+    const value = ''
+    const { fullAddress, handler } = this.props
+    const mergeObject = this.handlerRelated(name, value)
+    handler('fullAddress', { ...fullAddress, ...mergeObject, [name]: value })
+  }
+
   render() {
     const { taiwanPostalCodes, fullAddress: { city, district, postalCode, address } } = this.props
     const cityOptions = this.getCityOptions(this.cities)
@@ -74,7 +83,8 @@ class AddressPicker extends React.Component {
               >
                 <Input
                   type="text"
-                  name={postalCode}
+                  name="postalCode"
+                  id="postalCode"
                   value={postalCode}
                   disabled={true}
                   onChange={this.inputHandler} />
@@ -83,10 +93,14 @@ class AddressPicker extends React.Component {
               <TextField
                 outlined
                 label='地址'
+                helperText={<HelperText>輸入正確地址以完成寄送</HelperText>}
+                onTrailingIconSelect={this.clearAddress}
+                trailingIcon={<MaterialIcon role="button" icon="delete" />}
               >
                 <Input
                   type="text"
-                  name={address}
+                  name="address"
+                  id="address"
                   value={address}
                   onChange={this.inputHandler} />
               </TextField>

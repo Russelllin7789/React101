@@ -99,6 +99,8 @@ class ReceiptType extends React.Component {
                     label='統一編號'
                   >
                     <Input
+                      type="text"
+                      id="taxId"
                       value={taxId}
                       onChange={this.inputHandler} />
                   </TextField>
