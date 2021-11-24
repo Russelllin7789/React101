@@ -26,6 +26,7 @@
     "@material/react-checkbox": "^0.15.0",
     "@material/react-material-icon": "^0.15.0",
     "@material/react-radio": "^0.15.0",
+    "@material/react-select": "^0.15.0",
     "@material/react-text-field": "^0.15.0",
     "@material/react-typography": "^0.15.0"
   }

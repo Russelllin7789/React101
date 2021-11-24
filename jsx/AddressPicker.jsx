@@ -1,6 +1,7 @@
 import Card, { CardPrimaryContent } from "@material/react-card"
 import TextField, { HelperText, Input } from "@material/react-text-field"
 import MaterialIcon from "@material/react-material-icon"
+import Select, { Option } from '@material/react-select';
 
 class AddressPicker extends React.Component {
   constructor(props) {
@@ -28,15 +29,23 @@ class AddressPicker extends React.Component {
 
   getDistricts = (districts) => {
     return districts.map((district) => {
-      return (<option key={district} value={district}>{district}</option>)
+      return (<Option key={district} value={district}>{district}</Option>)
     })
   }
 
   //這段也可以放在 render 裡面
   getCityOptions = (cities) => {
     return cities.map((city) => {
-      return (<option key={city} value={city}>{city}</option>)
+      return (<Option key={city} value={city}>{city}</Option>)
     })
+  }
+
+  onEnhancedChange = (name, index, item) => {
+    const value = item.getAttribute('data-value')
+    const { fullAddress, handler } = this.props
+    const mergeObject = this.handlerRelated(name, value)
+    handler('fullAddress', { ...fullAddress, ...mergeObject, [name]: value })
+    // this.setState({ value: item.getAttribute('data-value') })
   }
 
   inputHandler = (e) => {
@@ -67,15 +76,35 @@ class AddressPicker extends React.Component {
           <div style={{ 'marginLeft': '1rem' }} className="container">
             <h2>Address</h2>
             <div>
-              <label>城市</label>
+              <Select
+                label='城市'
+                name="city"
+                value={city}
+                onEnhancedChange={this.onEnhancedChange.bind(this, 'city')}
+                enhanced
+                outlined
+              >
+                {cityOptions}
+              </Select>
+              {/* <label>城市</label>
               <select name="city" onChange={this.inputHandler} value={city}>
                 {cityOptions}
-              </select>
+              </select> */}
               <br />
-              <label>區域</label>
+              <Select
+                label='區域'
+                name="district"
+                value={district}
+                onEnhancedChange={this.onEnhancedChange.bind(this, 'district')}
+                enhanced
+                outlined
+              >
+                {districtOptions}
+              </Select>
+              {/* <label>區域</label>
               <select name="district" onChange={this.inputHandler} value={district} >
                 {districtOptions}
-              </select>
+              </select> */}
               <br />
               <TextField
                 outlined
