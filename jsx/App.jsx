@@ -2,6 +2,7 @@ import AddressPicker from "./AddressPicker.jsx"
 import ReceiptType from './ReceiptType.jsx'
 import TaiwanPostalCode from './TaiwanPostalCode.json'
 import Button from '@material/react-button'
+import { Cell, Grid, Row } from '@material/react-layout-grid';
 
 class App extends React.Component {
   constructor(props) {
@@ -52,16 +53,36 @@ class App extends React.Component {
     return (
       <div>
         <form>
-          <ReceiptType
-            receipt={this.state.receipt}
-            handler={this.handler} />
-          <br />
-          <AddressPicker
-            fullAddress={this.state.fullAddress}
-            handler={this.handler}
-            taiwanPostalCodes={TaiwanPostalCode} />
-          <br />
-          <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
+          <Grid>
+            <Row>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+              <Cell desktopColumns={6} phoneColumns={4} tabletColumns={6}>
+                <ReceiptType
+                  receipt={this.state.receipt}
+                  handler={this.handler} />
+                <br />
+              </Cell>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+            </Row>
+            <Row>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+              <Cell desktopColumns={6} phoneColumns={4} tabletColumns={6}>
+                <AddressPicker
+                  fullAddress={this.state.fullAddress}
+                  handler={this.handler}
+                  taiwanPostalCodes={TaiwanPostalCode} />
+                <br />
+              </Cell>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+            </Row>
+            <Row>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+              <Cell desktopColumns={6} phoneColumns={4} tabletColumns={6}>
+                <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
+              </Cell>
+              <Cell desktopColumns={3} phoneColumns={0} tabletColumns={1}></Cell>
+            </Row>
+          </Grid>
         </form>
       </div>
     )
