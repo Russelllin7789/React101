@@ -86,6 +86,7 @@ class AddressPicker extends React.Component {
               >
                 {cityOptions}
               </Select>
+              <input type="hidden" name="city" value={city} />
               {/* <label>城市</label>
               <select name="city" onChange={this.inputHandler} value={city}>
                 {cityOptions}
@@ -101,6 +102,7 @@ class AddressPicker extends React.Component {
               >
                 {districtOptions}
               </Select>
+              <input type="hidden" name="district" value={district} />
               {/* <label>區域</label>
               <select name="district" onChange={this.inputHandler} value={district} >
                 {districtOptions}
@@ -118,6 +120,7 @@ class AddressPicker extends React.Component {
                   disabled={true}
                   onChange={this.inputHandler} />
               </TextField>
+              <input type="hidden" name="postalCode" value={postalCode} />
               <br />
               <TextField
                 outlined

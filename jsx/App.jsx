@@ -51,16 +51,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <ReceiptType
-          receipt={this.state.receipt}
-          handler={this.handler} />
-        <br />
-        <AddressPicker
-          fullAddress={this.state.fullAddress}
-          handler={this.handler}
-          taiwanPostalCodes={TaiwanPostalCode} />
-        <br />
-        <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
+        <form>
+          <ReceiptType
+            receipt={this.state.receipt}
+            handler={this.handler} />
+          <br />
+          <AddressPicker
+            fullAddress={this.state.fullAddress}
+            handler={this.handler}
+            taiwanPostalCodes={TaiwanPostalCode} />
+          <br />
+          <Button type="submit" disabled={!this.isReady()} raised>Submit</Button>
+        </form>
       </div>
     )
   }
